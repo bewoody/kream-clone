@@ -3,12 +3,13 @@ from core import models as core_models
 
 
 class Brand(core_models.TimeStampedModel):
+    """Brand Model Definition"""
+
     name = models.CharField(max_length=40)
 
 
 class Product(core_models.TimeStampedModel):
-
-    """Product Model"""
+    """Product Model Definition"""
 
     brand = models.ForeignKey(
         "Brand", on_delete=models.CASCADE, related_name="products"
