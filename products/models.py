@@ -5,9 +5,12 @@ from core.models import TimeStampedModel
 class Brand(TimeStampedModel):
     name = models.CharField(max_length=40)
 
+    def __str__(self) -> str:
+        return self.name
+
 
 class Photo(TimeStampedModel):
-    image = models.ImageField()
+    image = models.ImageField(upload_to="products/%Y/%m/%d/")
     product = models.ForeignKey("Product", on_delete=models.CASCADE)
 
 
@@ -20,4 +23,11 @@ class Product(TimeStampedModel):
     released = models.DateField()
     color = models.CharField(max_length=120)
     released_price = models.PositiveIntegerField()
-    image = models.ImageField()
+
+    class Meta:
+        verbose_name = "상품"
+        verbose_name_plural = "상품"
+        ordering = ["created", "updated"]
+
+    def __str__(self) -> str:
+        return f"{self.brand} - {self.name_kr}"
